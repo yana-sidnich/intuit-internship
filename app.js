@@ -60,11 +60,18 @@ app.post("/buyticket", (req, res) => {
 
 app.get("/validateTicket", (req, res) => {
   const ticketID = req.query.id;
-  ticketsData.forEach((ticket) => {
-    if (ticketID == ticket.id) {
-      res.sendStatus(200).send("ticket is valid");
-    }
-  });
+  //   ticketsData.forEach((ticket) => {
+  //     if (ticketID == ticket.id) {
+  //       res.sendStatus(200).send("ticket is valid");
+  //     }
+  //   });
+
+  const result = ticketsData.find((ticket) => ticketID == ticket.id);
+  if (result) {
+    res.sendStatus(200).send("ticket is valid");
+  } else {
+    res.sendStatus(401).send("ticket isn't valid");
+  }
 });
 
 const startServer = () => {
